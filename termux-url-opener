@@ -1,0 +1,55 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+set -x
+
+url="$1"
+
+quit() {
+	echo "bye 👋"
+	exit
+}
+
+#main() {
+	while true
+	do
+		echo "What should I do with "$url"?"
+		echo "y) download youtube video"
+		echo "a) play youtube audio"
+		echo "g) download as gif"
+		echo "d) download as file" 
+		echo "x) exit"
+		
+		read CHOICE
+		case "$CHOICE" in
+			y)
+				while true
+				do
+					read -p "Options? (x to exit) " OPTION
+					if [ "$OPTION" == "x" ]
+					then
+						quit
+					fi
+					youtube-dl $OPTION "$url"
+				done
+				;;
+			a)
+				mpsyt playurl "$url"
+				;;
+			g)
+				echo "NOT YET IMPLEMENTED"
+				;;
+		    d)
+				axel -o "~/storage/downloads/" "$url"
+				wget $url
+				;;
+		    x)
+				quit
+				;; 
+			*)
+				echo "invalid choice. Try again."
+				;;
+		esac
+	done
+#}
+
+#main

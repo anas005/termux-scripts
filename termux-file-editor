@@ -1,0 +1,44 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+set -x
+
+FILE="$1"
+
+termux-url-opener() {
+	grep_url() {
+		egrep -o 'https?[^ ]*' "$FILE"
+	}
+	
+	URL=$(grep_url "$FILE")
+	
+	/data/data/com.termux/files/home/bin/termux-url-opener "$URL"
+}
+
+main() {
+	echo "What should I do with this file?"
+	echo "u) grab the url and call termux-url-opener"
+	echo "c) custom command"
+	echo "x) nothing"
+	
+	read CHOICE
+	case "$CHOICE" in
+		u)
+			termux-url-opener
+			rm "$FILE"
+			;;
+		c)
+			read -p "Enter your command: " CMD
+			$CMD "$FILE"
+			;;
+		x)
+			echo "bye 👋"
+			exit
+			;;
+		*)
+			echo "Invalid command! Try again."
+			main
+			;;
+	esac
+}
+
+main
