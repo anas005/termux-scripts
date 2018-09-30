@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/bash
+FILE="$1"
+FILENAME=$(basename "$FILE")
+ID=$(date +%s%N)
+
+termux-notification \
+	--title "Download completed" \
+	--id "$ID" \
+	--content "$FILENAME" \
+	--led-color "00ff00" \
+	--vibrate "300,150,300" \
+	--priority "max" \
+	--action "am start --user 0 -n com.termux/com.termux.app.TermuxActivity" \
+	--button1 "Play" \
+	--button1-action "termux-share -a view '$FILE'" \
+	--button2 "Share" \
+	--button2-action "termux-share -a send '$FILE'" \
+	--button3 "Delete" \
+	--button3-action "rm '$FILE'; termux-notification-remove $ID" \
+

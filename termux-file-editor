@@ -1,6 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-set -x
+set -e -u
+#set -x
 
 FILE="$1"
 
@@ -14,17 +15,19 @@ termux-url-opener() {
 	/data/data/com.termux/files/home/bin/termux-url-opener "$URL"
 }
 
-main() {
+while true
+do
 	echo "What should I do with this file?"
 	echo "u) grab the url and call termux-url-opener"
 	echo "c) custom command"
-	echo "x) nothing"
+	echo "x) exit"
 	
-	read CHOICE
+	read -p "Enter your choice: " CHOICE
 	case "$CHOICE" in
 		u)
 			termux-url-opener
-			rm "$FILE"
+			rm -i "$FILE"
+			exit
 			;;
 		c)
 			read -p "Enter your command: " CMD
@@ -35,10 +38,7 @@ main() {
 			exit
 			;;
 		*)
-			echo "Invalid command! Try again."
-			main
+			echo "Invalid choice! Try again."
 			;;
 	esac
-}
-
-main
+done
