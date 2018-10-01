@@ -12,9 +12,8 @@ termux-notification \
 	--priority "max" \
 	--action "am start --user 0 -n com.termux/com.termux.app.TermuxActivity" \
 	--button1 "Play" \
-	--button1-action "termux-share -a view '$FILE'" \
+	--button1-action "termux-open '${FILE//\'/\'\"\'\"\'}'" \
 	--button2 "Share" \
-	--button2-action "termux-share -a send '$FILE'" \
+	--button2-action "termux-share -a send '${FILE//\'/\'\"\'\"\'}'" \
 	--button3 "Delete" \
-	--button3-action "rm '$FILE'; termux-notification-remove $ID" \
-
+	--button3-action "rm '$FILE'; termux-notification-remove $ID"
