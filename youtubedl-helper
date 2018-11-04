@@ -1,0 +1,23 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -xe
+
+URL="$1"
+
+if [[ -z $URL ]]
+then
+	URL=$(termux-dialog -t "Enter URL:" | jq '.text' | sed 's/"//g')
+fi
+
+generate-cmd() {
+	FORMAT_LIST=$(echo "$1" | echo -n $(egrep -o '^[0-9]+') | tr ' ' ',')
+	echo "termux-dialog radio -v \"${FORMAT_LIST}\" -t \"Choose a format:\""
+}
+
+FORMATS=$(youtube-dl -F "$URL")
+
+CMD=$(generate-cmd "$FORMATS")
+
+FORMAT=$(eval $CMD | jq '.text' | sed 's/"//g')
+
+youtube-dl -f "$FORMAT" "$URL"
+
