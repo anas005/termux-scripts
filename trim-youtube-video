@@ -1,0 +1,25 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+usage() {
+	echo "Usage: $(basename $0) VIDEO_URL START_TIME DURATION OUTPUT_FILE"
+	exit 1
+}
+
+if [ -z "$1" ]; then
+	echo "video URL required"
+	usage
+fi
+if [ -z "$2" ]; then
+	echo "Start time required"
+	usage
+fi
+if [ -z "$3" ]; then
+	echo "End time required"
+	usage
+fi
+if [ -z "$4" ]; then
+	echo "Filename required"
+	usage
+fi
+
+ffmpeg $(youtube-dl -g "$1" | sed "s/.*/-ss $2 -i &/") -t $3 -map 0:v -map 1:a -c:v libx264 -c:a aac -y $4

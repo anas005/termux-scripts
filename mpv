@@ -1,0 +1,6 @@
+#!/data/data/com.termux/files/usr/bin/sh
+export LD_PRELOAD=/system/lib64/liblzma.so:/data/data/com.termux/files/usr/lib/liblzma.so:/data/data/com.termux/files/usr/lib/libglib-2.0.so:/data/data/com.termux/files/usr/lib/libavcodec.so:/data/data/com.termux/files/usr/lib/libavfilter.so:/data/data/com.termux/files/usr/lib/libavformat.so:/data/data/com.termux/files/usr/lib/libavutil.so:/data/data/com.termux/files/usr/lib/libpostproc.so:/data/data/com.termux/files/usr/lib/libswresample.so:/data/data/com.termux/files/usr/lib/libswscale.so
+
+export LD_LIBRARY_PATH=/system/lib64:/system/vendor/lib64:/data/data/com.termux/files/usr/lib
+
+/data/data/com.termux/files/usr/libexec/mpv $@

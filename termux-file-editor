@@ -26,7 +26,7 @@ do
 	case "$CHOICE" in
 		u)
 			termux-url-opener
-			rm -i "$FILE"
+			rm "$FILE"
 			exit
 			;;
 		c)
